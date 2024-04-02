@@ -10,6 +10,7 @@ const App = () => {
     const [quoteIndex, setQuoteIndex] = useState(0);
     const [quotes, setQuotes] = useState([]);
     const [quote, setQuote] = useState('');
+    const [author, setAuthor] = useState('');
     const [searchText, setSearchText] = useState('');
     const [fetchingQuotes, setFetchingQuotes] = useState(false);
 
@@ -22,7 +23,8 @@ const App = () => {
         if (quotes.length === 0) return;
         const currentQuote = quotes[quoteIndex];
         if (currentQuote.content) {
-            setQuote(`${currentQuote.content} - ${currentQuote.author}`);
+            setQuote(currentQuote.content);
+            setAuthor(currentQuote.author)
         }
     }, [quoteIndex, quotes, searchText]);
 
@@ -80,7 +82,11 @@ const App = () => {
                 <Text style={styles.title}>InspireMe</Text>
                 <IconTextInput onSubmit={handleSearch}/>
             </View>
-            <Text style={styles.quote}>{quote}</Text>
+            <View>
+                <Text style={styles.quote}>{quote}</Text>
+                <Text style={styles.by}>by</Text>
+                <Text style={styles.author}>{author}</Text>
+            </View>
             <View style={styles.footerContainer}>
                 <View style={styles.footer}>
                     <IconButton icon="arrow-back-ios-new" label="Back" onPress={handleBack}
@@ -121,6 +127,19 @@ const styles = StyleSheet.create({
         fontSize: 18,
         textAlign: 'center',
         margin: 20,
+        color: '#fff', // Set text color to white
+        // borderWidth:2,
+    },
+    by: {
+        fontSize: 12,
+        textAlign: 'center',
+
+        color: '#fff', // Set text color to white
+        // borderWidth:2,
+    },
+    author: {
+        fontSize: 15,
+        textAlign: 'center',
         color: '#fff', // Set text color to white
         // borderWidth:2,
     },

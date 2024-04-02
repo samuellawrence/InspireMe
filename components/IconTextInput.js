@@ -15,7 +15,6 @@ export default function IconTextInput({onSubmit}) {
 
     return (
         <View style={styles.searchSection}>
-            {/*<IconButton icon="search" onPress={handleFocus} />*/}
             <MaterialIcons name="search" style={styles.searchIcon} size={20} onPress={handleFocus}/>
             <TextInput
                 ref={textInputRef}
