@@ -83,7 +83,8 @@ const App = () => {
             <Text style={styles.quote}>{quote}</Text>
             <View style={styles.footerContainer}>
                 <View style={styles.footer}>
-                    <IconButton icon="arrow-back-ios-new" label="Back" onPress={handleBack}/>
+                    <IconButton icon="arrow-back-ios-new" label="Back" onPress={handleBack}
+                                disabled={quoteIndex === 0}/>
                     <CircleButton onPress={handleShare}/>
                     <IconButton icon="arrow-forward-ios" label="Next" onPress={handleNext}/>
                 </View>
@@ -97,13 +98,14 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#000', // Set background color to black
+        backgroundColor: '#012237', // Set background color to black
+        // borderWidth:2,
     },
     searchInput: {
         padding: 10,
         color: '#fff',
         width: '100%',
-        borderWidth: 2,
+        // borderWidth: 2,
         borderColor: '#fff',
         borderRadius: 5,
     },
@@ -113,30 +115,37 @@ const styles = StyleSheet.create({
         alignItems: "center",
         color: '#fff',
         marginBottom: 10,
+        // borderWidth:2,
     },
     quote: {
         fontSize: 18,
         textAlign: 'center',
         margin: 20,
         color: '#fff', // Set text color to white
+        // borderWidth:2,
     },
     headerContainer: {
         alignItems: "center",
         position: 'absolute',
         top: 40,
+        // borderWidth:2,
+        width: '90%'
     },
     searchContainer: {
         alignItems: 'center',
         justifyContent: 'center',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        // borderWidth:2,
     },
     footerContainer: {
         position: 'absolute',
-        bottom: 80
+        bottom: 80,
+        // borderWidth:2,
     },
     footer: {
         alignItems: 'center',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        // borderWidth:2,
     },
 });
 
