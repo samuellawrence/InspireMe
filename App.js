@@ -105,13 +105,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#012237', // Set background color to black
-        // borderWidth:2,
     },
     searchInput: {
         padding: 10,
         color: '#fff',
         width: '100%',
-        // borderWidth: 2,
+        borderWidth: 2,
         borderColor: '#fff',
         borderRadius: 5,
     },
@@ -120,34 +119,30 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         alignItems: "center",
         color: '#fff',
-        marginBottom: 10,
-        // borderWidth:2,
+        marginBottom: 10
     },
     quote: {
         fontSize: 18,
         textAlign: 'center',
+        verticalAlign: 'middle',
         margin: 20,
         color: '#fff', // Set text color to white
-        // borderWidth:2,
     },
     by: {
         fontSize: 12,
+        verticalAlign: 'middle',
         textAlign: 'center',
-
         color: '#fff', // Set text color to white
-        // borderWidth:2,
     },
     author: {
         fontSize: 15,
         textAlign: 'center',
         color: '#fff', // Set text color to white
-        // borderWidth:2,
     },
     headerContainer: {
         alignItems: "center",
         position: 'absolute',
         top: 40,
-        // borderWidth:2,
         width: '90%'
     },
     searchContainer: {
