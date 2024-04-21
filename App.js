@@ -1,4 +1,3 @@
-// Import necessary libraries
 import React, {useEffect, useState} from 'react';
 import {Share, StyleSheet, Text, View} from 'react-native';
 import {fetchRandomQuotes, searchQuotes} from "./api"
@@ -49,7 +48,7 @@ const App = () => {
     const handleShare = async () => {
         try {
             await Share.share({
-                message: quote,
+                message: `${quote}\n--${author}`,
             });
         } catch (error) {
             console.error('Error sharing quote:', error);
@@ -84,8 +83,7 @@ const App = () => {
             </View>
             <View>
                 <Text style={styles.quote}>{quote}</Text>
-                <Text style={styles.by}>by</Text>
-                <Text style={styles.author}>{author}</Text>
+                <Text style={styles.author}>--{author}</Text>
             </View>
             <View style={styles.footerContainer}>
                 <View style={styles.footer}>
@@ -131,13 +129,15 @@ const styles = StyleSheet.create({
     by: {
         fontSize: 12,
         verticalAlign: 'middle',
-        textAlign: 'center',
+        textAlign: 'right',
         color: '#fff', // Set text color to white
     },
     author: {
         fontSize: 15,
-        textAlign: 'center',
+        textAlign: 'right',
         color: '#fff', // Set text color to white
+        marginRight: 20,
+        fontStyle: "italic"
     },
     headerContainer: {
         alignItems: "center",
