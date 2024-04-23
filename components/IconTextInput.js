@@ -4,6 +4,7 @@ import {MaterialIcons} from "@expo/vector-icons";
 
 export default function IconTextInput({onSubmit}) {
     const [searchText, setSearchText] = useState('');
+    const [isAuthorSearch, setIsAuthorSearch] = useState(false);
     const textInputRef = useRef(null);
 
     const handleFocus = () => {
@@ -13,18 +14,24 @@ export default function IconTextInput({onSubmit}) {
         setSearchText('');
     };
 
+    const toggleSearchMode = () => {
+        setIsAuthorSearch(!isAuthorSearch); // Toggle search mode
+        setSearchText(''); // Clear search text when toggling
+    };
+
     return (
         <View style={styles.searchSection}>
-            <MaterialIcons name="search" style={styles.searchIcon} size={20} onPress={handleFocus}/>
+            <MaterialIcons name={isAuthorSearch ? "person" : "search"} style={styles.searchIcon} size={20}
+                           onPress={toggleSearchMode}/>
             <TextInput
                 ref={textInputRef}
                 style={styles.input}
-                placeholder="Search by phrase..."
+                placeholder={isAuthorSearch ? "Search by author..." : "Search by quote..."}
                 placeholderTextColor='#424242'
                 maxLength={80}
                 onChangeText={text => setSearchText(text)}
                 value={searchText}
-                onSubmitEditing={() => onSubmit(searchText)}
+                onSubmitEditing={() => onSubmit(searchText, isAuthorSearch)}
             />
             <MaterialIcons name="clear" style={styles.searchIcon} size={20} onPress={handleClear}/>
         </View>
@@ -34,11 +41,12 @@ export default function IconTextInput({onSubmit}) {
 const styles = StyleSheet.create({
     searchSection: {
         flex: 1,
+        borderRadius: 50,
+        borderCurve: 'circular',
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#fff',
-        padding: 5
+        backgroundColor: '#fff'
     },
     searchIcon: {
         padding: 10,

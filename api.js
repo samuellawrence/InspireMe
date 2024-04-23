@@ -5,8 +5,12 @@ export const fetchRandomQuotes = () => {
         .then(response => response.json());
 };
 
-export const searchQuotes = (searchText) => {
-    let searchUrl = url(`search/quotes?limit=25&query=${searchText}&fields=content&fuzzyMaxEdits=2`);
+export const searchQuotes = (searchText, isAuthorSearch) => {
+    let searchString = searchText;
+    if (isAuthorSearch) {
+        searchString = `author:${searchText}`;
+    }
+    let searchUrl = url(`search/quotes?limit=25&query=${searchString}&fuzzyMaxEdits=2`);
     return fetch(searchUrl)
         .then(response => response.json());
 }

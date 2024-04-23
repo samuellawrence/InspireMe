@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {Share, StyleSheet, Text, View} from 'react-native';
+import {ActivityIndicator, Share, StyleSheet, Text, View} from 'react-native';
+// import {fetchRandomQuotes, searchQuotes} from "./api-test"
 import {fetchRandomQuotes, searchQuotes} from "./api"
 import IconButton from "./components/IconButton";
 import CircleButton from "./components/CircleButton";
@@ -10,6 +11,7 @@ const App = () => {
     const [quotes, setQuotes] = useState([]);
     const [quote, setQuote] = useState('');
     const [author, setAuthor] = useState('');
+    const [authorSearch, setAuthorSearch] = useState(false);
     const [searchText, setSearchText] = useState('');
     const [fetchingQuotes, setFetchingQuotes] = useState(false);
 
@@ -30,7 +32,7 @@ const App = () => {
     const search = () => {
         if (searchText && quotes.length - quoteIndex <= 5) {
             setFetchingQuotes(true);
-            searchQuotes(searchText)
+            searchQuotes(searchText, authorSearch)
                 .then(data => setQuotes([...quotes, ...data.results]))
                 .finally(() => setFetchingQuotes(false));
         }
@@ -67,11 +69,12 @@ const App = () => {
         }
     };
 
-    const handleSearch = (text) => {
-        if (text !== searchText) {
+    const handleSearch = (text, isAuthorSearch) => {
+        if (text !== searchText || isAuthorSearch !== authorSearch) {
             setQuotes([]);
             setQuoteIndex(0);
             setSearchText(text);
+            setAuthorSearch(isAuthorSearch);
         }
     };
 
@@ -81,10 +84,16 @@ const App = () => {
                 <Text style={styles.title}>InspireMe</Text>
                 <IconTextInput onSubmit={handleSearch}/>
             </View>
-            <View>
-                <Text style={styles.quote}>{quote}</Text>
-                <Text style={styles.author}>--{author}</Text>
-            </View>
+            {
+                fetchingQuotes ? (
+                    <ActivityIndicator size="large" color="#00ff000"/>
+                ) : (
+                    <View>
+                        <Text style={styles.quote}>{quote}</Text>
+                        <Text style={styles.author}>--{author}</Text>
+                    </View>
+                )
+            }
             <View style={styles.footerContainer}>
                 <View style={styles.footer}>
                     <IconButton icon="arrow-back-ios-new" label="Back" onPress={handleBack}
@@ -120,20 +129,14 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     quote: {
-        fontSize: 18,
+        fontSize: 20,
         textAlign: 'center',
         verticalAlign: 'middle',
         margin: 20,
         color: '#fff', // Set text color to white
     },
-    by: {
-        fontSize: 12,
-        verticalAlign: 'middle',
-        textAlign: 'right',
-        color: '#fff', // Set text color to white
-    },
     author: {
-        fontSize: 15,
+        fontSize: 18,
         textAlign: 'right',
         color: '#fff', // Set text color to white
         marginRight: 20,
@@ -149,17 +152,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
-        // borderWidth:2,
     },
     footerContainer: {
         position: 'absolute',
         bottom: 80,
-        // borderWidth:2,
     },
     footer: {
         alignItems: 'center',
         flexDirection: 'row',
-        // borderWidth:2,
     },
 });
 
