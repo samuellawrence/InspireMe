@@ -14,6 +14,7 @@ const App = () => {
     const [authorSearch, setAuthorSearch] = useState(false);
     const [searchText, setSearchText] = useState('');
     const [fetchingQuotes, setFetchingQuotes] = useState(false);
+    const [forceFetchingQuotes, setForceFetchingQuotes] = useState(false);
 
     useEffect(() => {
         if (searchText) {
@@ -27,7 +28,7 @@ const App = () => {
             setQuote(currentQuote.content);
             setAuthor(currentQuote.author)
         }
-    }, [quoteIndex, quotes, searchText]);
+    }, [quoteIndex, quotes, searchText, forceFetchingQuotes]);
 
     const search = () => {
         if (searchText && quotes.length - quoteIndex <= 5) {
@@ -39,11 +40,14 @@ const App = () => {
     }
 
     const fetchQuotes = () => {
-        if (quotes.length - quoteIndex <= 5) {
+        if (quotes.length - quoteIndex <= 5 || forceFetchingQuotes) {
             setFetchingQuotes(true);
             fetchRandomQuotes()
                 .then(data => setQuotes([...quotes, ...data]))
-                .finally(() => setFetchingQuotes(false));
+                .finally(() => {
+                    setFetchingQuotes(false);
+                    setForceFetchingQuotes(false);
+                });
         }
     };
 
@@ -78,11 +82,18 @@ const App = () => {
         }
     };
 
+    const handelCancelSearch = () => {
+        setQuotes([]);
+        setQuoteIndex(0);
+        setSearchText('');
+        setForceFetchingQuotes(true);
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.headerContainer}>
                 <Text style={styles.title}>InspireMe</Text>
-                <IconTextInput onSubmit={handleSearch}/>
+                <IconTextInput onSubmit={handleSearch} onCancel={handelCancelSearch}/>
             </View>
             {
                 fetchingQuotes ? (

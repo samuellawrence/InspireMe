@@ -2,7 +2,7 @@ import {StyleSheet, TextInput, View} from "react-native";
 import {useRef, useState} from "react";
 import {MaterialIcons} from "@expo/vector-icons";
 
-export default function IconTextInput({onSubmit}) {
+export default function IconTextInput({onSubmit, onCancel}) {
     const [searchText, setSearchText] = useState('');
     const [isAuthorSearch, setIsAuthorSearch] = useState(false);
     const textInputRef = useRef(null);
@@ -12,6 +12,7 @@ export default function IconTextInput({onSubmit}) {
     };
     const handleClear = () => {
         setSearchText('');
+        onCancel();
     };
 
     const toggleSearchMode = () => {
