@@ -5,7 +5,6 @@ import {fetchRandomQuotes, searchQuotes} from "../api-test"
 import IconButton from "../components/IconButton";
 import CircleButton from "../components/CircleButton";
 import IconTextInput from "../components/IconTextInput";
-import {FAB} from "react-native-paper";
 import {SettingsContext} from "../context/SettingsContext";
 
 const HomeScreen = ({navigation}) => {
@@ -97,7 +96,10 @@ const HomeScreen = ({navigation}) => {
     return (
         <View style={styles.container}>
             <View style={styles.headerContainer}>
-                <Text style={styles.title}>InspireMe</Text>
+                <View style={styles.titleContainer}>
+                    <Text style={styles.title}>InspireMe</Text>
+                    <IconButton icon="settings" size={20} onPress={() => navigation.navigate('Settings')}></IconButton>
+                </View>
                 <IconTextInput onSubmit={handleSearch} onCancel={handelCancelSearch}/>
             </View>
             {
@@ -105,21 +107,11 @@ const HomeScreen = ({navigation}) => {
                     <ActivityIndicator size="large" color="#00ff000"/>
                 ) : (
                     <View>
-                        <Text style={[styles.quote, {fontSize: quoteFontSize}]}>{quote}</Text>
-                        <Text style={[styles.author, {fontSize: authorFontSize}]}>--{author}</Text>
+                        <Text style={[styles.quote, {fontSize: Number(quoteFontSize)}]}>{quote}</Text>
+                        <Text style={[styles.author, {fontSize: Number(authorFontSize)}]}>--{author}</Text>
                     </View>
                 )
             }
-            <FAB
-                style={{
-                    position: 'absolute',
-                    margin: 16,
-                    right: 0,
-                    bottom: 0,
-                }}
-                icon="plus"
-                onPress={() => navigation.navigate('Settings')}
-            />
             <View style={styles.footerContainer}>
                 <View style={styles.footer}>
                     <IconButton icon="arrow-back-ios-new" label="Back" onPress={handleBack}
@@ -147,12 +139,20 @@ const styles = StyleSheet.create({
         borderColor: '#fff',
         borderRadius: 5,
     },
+    titleContainer: {
+        flexDirection: "row",
+        paddingHorizontal: 10,
+        paddingBottom: 10,
+        paddingLeft: 35,
+        alignItems: 'center'
+    },
     title: {
+        flex: 1,
         fontSize: 15,
         fontWeight: 'bold',
-        alignItems: "center",
-        color: '#fff',
-        marginBottom: 10
+        alignItems: 'center',
+        textAlign: 'center',
+        color: '#fff'
     },
     quote: {
         fontSize: 20,
@@ -169,10 +169,11 @@ const styles = StyleSheet.create({
         fontStyle: "italic"
     },
     headerContainer: {
+        top: 40,
         alignItems: "center",
         position: 'absolute',
-        top: 40,
-        width: '90%'
+        width: "100%",
+        paddingHorizontal: 10
     },
     searchContainer: {
         alignItems: 'center',

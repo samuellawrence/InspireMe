@@ -14,19 +14,19 @@ const SettingsScreen = ({navigation}) => {
 
     return (
         <View style={styles.container}>
-            <Text style={{fontSize: quoteFontSize, textAlign: 'center'}}>Quote Text Size</Text>
+            <Text style={[styles.label, {fontSize: quoteFontSize}]}>Quote Text Size</Text>
             <Slider
                 style={{width: 200, height: 40}}
                 minimumValue={10}
-                maximumValue={50}
+                maximumValue={40}
                 value={quoteFontSize}
                 onValueChange={setQuoteFontSize}
             />
-            <Text style={{fontSize: authorFontSize, textAlign: 'center'}}>Author Text Size</Text>
+            <Text style={[styles.label, {fontSize: authorFontSize}]}>Author Text Size</Text>
             <Slider
                 style={{width: 200, height: 40}}
                 minimumValue={10}
-                maximumValue={50}
+                maximumValue={40}
                 value={authorFontSize}
                 onValueChange={setAuthorFontSize}
             />
@@ -40,7 +40,12 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: '#012237',
     },
+    label: {
+        textAlign: 'center',
+        color: "white"
+    }
 });
 
 export default SettingsScreen;
