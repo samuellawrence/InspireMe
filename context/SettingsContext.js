@@ -1,41 +1,36 @@
 import React, {createContext, useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const SettingsContext = createContext({quoteFontSize: 20, authorFontSize: 18});
+export const SettingsContext = createContext();
 
 export const SettingsProvider = ({children}) => {
-    const [quoteFontSize, setQuoteFontSize] = useState(20);
-    const [authorFontSize, setAuthorFontSize] = useState(20);
+    const defaultQuoteFontSize = 20;
+    const defaultAuthorFontSize = 16;
+
+    const [quoteFontSize, setQuoteFontSize] = useState(defaultQuoteFontSize);
+    const [authorFontSize, setAuthorFontSize] = useState(defaultAuthorFontSize);
 
     useEffect(() => {
-        const loadSettings = async () => {
-            const storedQuoteFontSize = await AsyncStorage.getItem('quoteFontSize');
-            if (storedQuoteFontSize) setQuoteFontSize(parseFloat(storedQuoteFontSize));
-
-            const storedAuthorFontSize = await AsyncStorage.getItem('authorFontSize');
-            if (storedAuthorFontSize) setAuthorFontSize(parseFloat(storedAuthorFontSize));
-        };
-
-        loadSettings();
+        loadFontSizes();
     }, []);
 
-    const handleQuoteFontSizeChange = async (newSize) => {
-        setQuoteFontSize(newSize);
-        await AsyncStorage.setItem('quoteFontSize', newSize.toString());
+    const loadFontSizes = async () => {
+        const storedQuoteFontSize = await AsyncStorage.getItem('quoteFontSize');
+        const storedAuthorFontSize = await AsyncStorage.getItem('authorFontSize');
+        if (storedQuoteFontSize) setQuoteFontSize(parseFloat(storedQuoteFontSize));
+        if (storedAuthorFontSize) setAuthorFontSize(parseFloat(storedAuthorFontSize));
     };
 
-    const handleAuthorFontSizeChange = async (newSize) => {
-        setAuthorFontSize(newSize);
-        await AsyncStorage.setItem('authorFontSize', newSize.toString());
-    }
+    const resetFontSizes = async () => {
+        setQuoteFontSize(defaultQuoteFontSize);
+        setAuthorFontSize(defaultAuthorFontSize);
+        await AsyncStorage.setItem('quoteFontSize', defaultQuoteFontSize.toString());
+        await AsyncStorage.setItem('authorFontSize', defaultAuthorFontSize.toString());
+    };
 
     return (
-        <SettingsContext.Provider value={{
-            quoteFontSize,
-            setQuoteFontSize: handleQuoteFontSizeChange,
-            authorFontSize,
-            setAuthorFontSize: handleAuthorFontSizeChange
-        }}>
+        <SettingsContext.Provider
+            value={{quoteFontSize, setQuoteFontSize, authorFontSize, setAuthorFontSize, resetFontSizes}}>
             {children}
         </SettingsContext.Provider>
     );

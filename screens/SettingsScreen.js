@@ -1,11 +1,17 @@
 import React, {useContext} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Button, StyleSheet, Text, View} from 'react-native';
 import Slider from "@react-native-community/slider";
 import {SettingsContext} from "../context/SettingsContext";
 
 const SettingsScreen = ({navigation}) => {
-    const {quoteFontSize, setQuoteFontSize} = useContext(SettingsContext);
-    const {authorFontSize, setAuthorFontSize} = useContext(SettingsContext);
+    const {
+        quoteFontSize,
+        setQuoteFontSize,
+        authorFontSize,
+        setAuthorFontSize,
+        resetFontSizes
+    } = useContext(SettingsContext);
+
     return (
         <View style={styles.container}>
             <Text style={{fontSize: quoteFontSize, textAlign: 'center'}}>Quote Text Size</Text>
@@ -20,10 +26,11 @@ const SettingsScreen = ({navigation}) => {
             <Slider
                 style={{width: 200, height: 40}}
                 minimumValue={10}
-                maximumValue={30}
+                maximumValue={50}
                 value={authorFontSize}
                 onValueChange={setAuthorFontSize}
             />
+            <Button title="Reset to Default" onPress={resetFontSizes}/>
         </View>
     );
 };
