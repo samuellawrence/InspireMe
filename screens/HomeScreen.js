@@ -1,7 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {ActivityIndicator, Share, StyleSheet, Text, View} from 'react-native';
-import {fetchRandomQuotes, searchQuotes} from "../api-test"
-// import {fetchRandomQuotes, searchQuotes} from "../api"
+import {fetchRandomQuotes, searchQuotes} from "../api"
 import IconButton from "../components/IconButton";
 import CircleButton from "../components/CircleButton";
 import IconTextInput from "../components/IconTextInput";
