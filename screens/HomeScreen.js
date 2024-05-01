@@ -94,29 +94,32 @@ const HomeScreen = ({navigation}) => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.headerContainer}>
-                <View style={styles.titleContainer}>
-                    <Text style={styles.title}>InspireMe</Text>
-                    <IconButton icon="settings" size={20} onPress={() => navigation.navigate('Settings')}></IconButton>
-                </View>
-                <IconTextInput onSubmit={handleSearch} onCancel={handelCancelSearch}/>
-            </View>
-            {
-                fetchingQuotes ? (
-                    <ActivityIndicator size="large" color="#00ff000"/>
-                ) : (
-                    <View>
-                        <Text style={[styles.quote, {fontSize: Number(quoteFontSize)}]}>{quote}</Text>
-                        <Text style={[styles.author, {fontSize: Number(authorFontSize)}]}>--{author}</Text>
+            <View style={styles.main}>
+                <View style={styles.headerContainer}>
+                    <View style={styles.titleContainer}>
+                        <Text style={styles.title}>InspireMe</Text>
+                        <IconButton icon="settings" size={25}
+                                    onPress={() => navigation.navigate('Settings')}></IconButton>
                     </View>
-                )
-            }
-            <View style={styles.footerContainer}>
-                <View style={styles.footer}>
-                    <IconButton icon="arrow-back-ios-new" label="Back" onPress={handleBack}
-                                disabled={quoteIndex === 0}/>
-                    <CircleButton onPress={handleShare}/>
-                    <IconButton icon="arrow-forward-ios" label="Next" onPress={handleNext}/>
+                    <IconTextInput onSubmit={handleSearch} onCancel={handelCancelSearch}/>
+                </View>
+                {
+                    fetchingQuotes ? (
+                        <ActivityIndicator size="large" color="#00ff000"/>
+                    ) : (
+                        <View>
+                            <Text style={[styles.quote, {fontSize: Number(quoteFontSize)}]}>{quote}</Text>
+                            <Text style={[styles.author, {fontSize: Number(authorFontSize)}]}>--{author}</Text>
+                        </View>
+                    )
+                }
+                <View style={styles.footerContainer}>
+                    <View style={styles.footer}>
+                        <IconButton icon="arrow-back-ios-new" label="Back" onPress={handleBack}
+                                    disabled={quoteIndex === 0}/>
+                        <CircleButton onPress={handleShare}/>
+                        <IconButton icon="arrow-forward-ios" label="Next" onPress={handleNext}/>
+                    </View>
                 </View>
             </View>
         </View>
@@ -126,9 +129,12 @@ const HomeScreen = ({navigation}) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    main: {
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#012237', // Set background color to black
+        backgroundColor: '#012237',
     },
     searchInput: {
         padding: 10,
@@ -168,7 +174,7 @@ const styles = StyleSheet.create({
         fontStyle: "italic"
     },
     headerContainer: {
-        top: 40,
+        top: 25,
         alignItems: "center",
         position: 'absolute',
         width: "100%",

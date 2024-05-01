@@ -5,7 +5,7 @@ import {SettingsContext} from "../context/SettingsContext";
 
 const minimumValue = 10;
 const maximumValue = 40;
-const SettingsScreen = ({navigation}) => {
+const SettingsScreen = () => {
     const {
         quoteFontSize,
         setQuoteFontSize,
@@ -48,14 +48,17 @@ const styles = StyleSheet.create({
     },
     label: {
         textAlign: 'center',
-        color: "white"
+        verticalAlign: 'middle',
+        color: "white",
+        minHeight: 48
     },
     slider: {
         width: 200,
-        height: 40
+        height: 48
     },
     resetButtonContainer: {
-        paddingTop: 15
+        paddingTop: 15,
+        height: 48
     }
 });
 

@@ -7,9 +7,6 @@ export default function IconTextInput({onSubmit, onCancel}) {
     const [isAuthorSearch, setIsAuthorSearch] = useState(false);
     const textInputRef = useRef(null);
 
-    const handleFocus = () => {
-        textInputRef.current.focus();
-    };
     const handleClear = () => {
         setSearchText('');
         onCancel();
@@ -47,7 +44,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+        height: 48,
     },
     searchIcon: {
         padding: 10,
