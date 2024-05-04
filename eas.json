@@ -1,6 +1,8 @@
 {
   "cli": {
-    "version": ">= 7.8.4"
+    "version": ">= 7.8.4",
+    "promptToConfigurePushNotifications": false,
+    "appVersionSource": "remote"
   },
   "build": {
     "development": {
@@ -11,6 +13,7 @@
       "distribution": "internal"
     },
     "production": {
+      "autoIncrement": true
     }
   },
   "submit": {
